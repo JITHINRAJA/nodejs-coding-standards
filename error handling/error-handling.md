@@ -6,13 +6,16 @@ try {
   // Retrieve the bank account from the database based on the provided ID
   const bankAccount = await bankAccountRepo.getBankAccount(validatedData.id);
 
+  // Convert the bank account data into a resource representation
+      const data = await BankAccountResource.format(bankAccount);
+
   // Check if the bank account was successfully retrieved
   if (bankAccount) {
     // Respond with a success message and the retrieved bank account data
     res.status(200).json({
       status: true,
       message: responseMessages.getBankAccountSuccess,
-      data: bankAccount
+      data: data
     });
   } else {
     // Respond with an error message if retrieving the bank account failed
